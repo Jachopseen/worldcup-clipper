@@ -1,0 +1,24 @@
+# render.yaml — configurazione automatica per Render.com
+# Carica questo file nel tuo repository GitHub insieme a main.py
+# Render lo legge e configura il servizio senza impostazioni manuali
+
+services:
+  - type: web
+    name: worldcup-clipper
+    runtime: python
+    buildCommand: |
+      pip install -r requirements.txt
+      apt-get install -y ffmpeg
+    startCommand: python main.py
+    plan: free
+    envVars:
+      - key: YOUTUBE_CLIENT_ID
+        sync: false          # impostato manualmente nella dashboard Render
+      - key: YOUTUBE_CLIENT_SECRET
+        sync: false
+      - key: YOUTUBE_REFRESH_TOKEN
+        sync: false
+      - key: CHANNEL_ID
+        sync: false
+      - key: PORT
+        value: 10000
