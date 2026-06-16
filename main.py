@@ -195,10 +195,13 @@ def download_video(youtube_url: str, output_dir: str, cookies_path: str | None) 
         "--output", output_template,
         "--no-playlist",
         "--quiet",
-        "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "--extractor-args", "youtube:player_client=web",
+        # Usa Android + iOS come client: non richiedono PO Token a differenza di web
+        "--extractor-args", "youtube:player_client=android,ios",
         "--sleep-interval", "2",
         "--max-sleep-interval", "5",
+        # Aggiorna yt-dlp internamente prima di ogni download per avere sempre
+        # le ultime patch anti-blocco di YouTube
+        "--no-update",
     ]
 
     if cookies_path:
